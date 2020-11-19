@@ -13,8 +13,8 @@ from time import time
 
 app = Flask(__name__)
 
-line_bot_api = LineBotApi('JLeOUL8WbalfzEnZH8aRWLbD4CbFgj6fFeKCLLpLbBnuuZT49+uS81FM8o+ggVEw4pcGevHrHu5XnogwtqLiGiKlwacFAMXp0qps/uOKgpzCxIloOTln0dRawNY6z1gEHpo/vetBrc7eh4pKGFYjuwdB04t89/1O/w1cDnyilFU=') #チャンネルアクセストークン
-handler = WebhookHandler('0c97dd986fc7bfe575ca8a33bf472dc9') #チャンネルシークレット
+line_bot_api = LineBotApi('') #チャンネルアクセストークン
+handler = WebhookHandler('') #チャンネルシークレット
 
 @app.route("/")
 def test():
@@ -44,8 +44,8 @@ def handle_message(event):
     userId = event.source.user_id
     if event.message.text == "ありがとう":
         reply_message = "どういたしまして。"
-    elif event.message.text == "好きな漫画は？":
-         reply_message = "ドラゴンボール\nBLEACH\nクロスボーンガンダムです。"
+    elif event.message.text == "": #質問
+         reply_message = "" #返答
     elif event.message.text == "計測開始":
         reply_message = "計測を開始しました"
         if not userId in users:
@@ -64,7 +64,7 @@ def handle_message(event):
         t_second = users[userId]["total"] % 60
         reply_message = f"{hour}時間{minute}分{second}秒\n合計{t_hour}時間{t_minute}分{t_second}秒\n計測を終了しました"
     else:
-        reply_message = "ひぃっ！"
+        reply_message = "" #返事
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text = reply_message))
